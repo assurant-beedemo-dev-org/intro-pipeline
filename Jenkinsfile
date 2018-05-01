@@ -39,6 +39,7 @@ pipeline {
           }
         }
       }
+    }
     stage('Deploy') {
           options {
             timeout(time: 10, unit: 'SECONDS')
@@ -50,7 +51,6 @@ pipeline {
             echo 'Continuing with deployment'
           }
     }
-  
   }
   environment {
     MY_NAME = 'Mary'
