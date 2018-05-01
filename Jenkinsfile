@@ -11,7 +11,7 @@ pipeline {
         sh 'java -version'
       }
     }
-stage('Deploy') {
+    stage('Deploy') {
       options {
         timeout(time: 30, unit: 'SECONDS') 
       }
@@ -33,5 +33,10 @@ stage('Deploy') {
   }
   parameters {
     string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
+  }
+  post {
+    aborted {
+      echo 'Why didn\'t you push my button?'
+    }
   }
 }
