@@ -1,49 +1,10 @@
 pipeline {
-  agent {
-    label 'jdk8'
-  }
+  agent none
   stages {
-    stage('Say Hello') {
+    stage('Publish Event') {
       steps {
-        echo "Hello ${params.Name}!"
-        sh 'java -version'
-        echo "${TEST_USER_USR}"
-        echo "${TEST_USER_PSW}"
+        publishEvent simpleEvent('beeEvent')
       }
     }
-    stage('Testing') {
-          agent {
-            label 'jdk9'
-          }
-          steps {
-            sh 'java -version'
-            sleep(time: 20, unit: 'SECONDS')
-          }
-    }
-    stage('Deploy') {
-          options {
-            timeout(time: 10, unit: 'SECONDS')
-          }
-          input {
-            message 'Should we continue?'
-          }
-          steps {
-            echo 'Continuing with deployment'
-          }
-    }
-  }
-  environment {
-    MY_NAME = 'Mary'
-    TEST_USER = credentials('test-user')
-  }
-  post {
-    aborted {
-      echo 'Why didn\'t you push my button?'
-      
-    }
-    
-  }
-  parameters {
-    string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
 }
