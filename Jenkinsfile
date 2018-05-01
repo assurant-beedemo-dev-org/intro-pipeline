@@ -11,12 +11,6 @@ pipeline {
         echo "${TEST_USER_PSW}"
       }
     }
-    stage('Checkpoint') {
-         agent none
-         steps {
-            checkpoint 'Checkpoint'
-         }
-    }
     stage('Testing') {
       failFast true
       parallel {
